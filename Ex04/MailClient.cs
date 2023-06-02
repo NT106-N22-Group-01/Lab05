@@ -32,17 +32,26 @@ namespace Ex04
 			var smtpServer = textBoxSMTP.Text;
 			var smtpPort = Convert.ToInt32(numericUpDownSMTPPort.Value);
 			buttonLogin.Visible = false;
-			if (!await ConnectToIMAPAsync(account, password, imapServer, imapPort))
+			try
 			{
-				MessageBox.Show("Không thể kết nối đến server. Kiểm tra lại tài khoản, mật khẩu và địa chỉ của IMAP",
-						"ImapClient Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-				buttonLogin.Visible = true;
-				return;
-			}
-			if (!await ConnectToSMTPAsync(account, password, smtpServer, smtpPort))
+				if (!await ConnectToIMAPAsync(account, password, imapServer, imapPort))
+				{
+					MessageBox.Show("Không thể kết nối đến server. Kiểm tra lại tài khoản, mật khẩu và địa chỉ của IMAP",
+							"ImapClient Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					buttonLogin.Visible = true;
+					return;
+				}
+				if (!await ConnectToSMTPAsync(account, password, smtpServer, smtpPort))
+				{
+					MessageBox.Show("Không thể kết nối đến server. Kiểm tra lại tài khoản, mật khẩu và địa chỉ của SMTP",
+							"SmtpClient Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					buttonLogin.Visible = true;
+					return;
+				}
+			} catch (Exception ex)
 			{
-				MessageBox.Show("Không thể kết nối đến server. Kiểm tra lại tài khoản, mật khẩu và địa chỉ của SMTP",
-						"SmtpClient Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				MessageBox.Show(ex.Message,
+						"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				buttonLogin.Visible = true;
 				return;
 			}
@@ -94,9 +103,7 @@ namespace Ex04
 			}
 			catch (Exception ex)
 			{
-				MessageBox.Show(ex.Message,
-						"ImapClient Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-				return false;
+				throw;
 			}
 			return true;
 		}
