@@ -24,7 +24,8 @@ namespace Ex04
 
 		private async void buttonLogin_Click(object sender, EventArgs e)
 		{
-			TextBoxValidate();
+			if (!TextBoxValidate())
+				return;
 			var account = textBoxAccount.Text;
 			var password = textBoxPassword.Text;
 			var imapServer = textBoxIMAP.Text;
@@ -48,7 +49,8 @@ namespace Ex04
 					buttonLogin.Visible = true;
 					return;
 				}
-			} catch (Exception ex)
+			}
+			catch (Exception ex)
 			{
 				MessageBox.Show(ex.Message,
 						"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -132,55 +134,56 @@ namespace Ex04
 			return true;
 		}
 
-		private void TextBoxValidate()
+		private bool TextBoxValidate()
 		{
 			if (!int.TryParse(numericUpDownIMAPPort.Text, out var imapPort))
 			{
 				MessageBox.Show("Invalid IMAP port number.");
-				return;
+				return false;
 			}
 
 			if (!int.TryParse(numericUpDownSMTPPort.Text, out var smtpPort))
 			{
 				MessageBox.Show("Invalid SMTP port number.");
-				return;
+				return false;
 			}
 
 			if (string.IsNullOrWhiteSpace(textBoxIMAP.Text))
 			{
 				MessageBox.Show("IMAP server URL is required.");
-				return;
+				return false;
 			}
 
 			if (string.IsNullOrWhiteSpace(textBoxSMTP.Text))
 			{
 				MessageBox.Show("SMTP server URL is required.");
-				return;
+				return false;
 			}
 
 			if (imapPort <= 0 || imapPort > 65535)
 			{
 				MessageBox.Show("Invalid IMAP port number.");
-				return;
+				return false;
 			}
 
 			if (smtpPort <= 0 || smtpPort > 65535)
 			{
 				MessageBox.Show("Invalid SMTP port number.");
-				return;
+				return false;
 			}
 
 			if (string.IsNullOrWhiteSpace(textBoxAccount.Text))
 			{
 				MessageBox.Show("Account is required.");
-				return;
+				return false;
 			}
 
 			if (string.IsNullOrWhiteSpace(textBoxPassword.Text))
 			{
 				MessageBox.Show("Password is required.");
-				return;
+				return false;
 			}
+			return true;
 		}
 
 		private async Task SearchEmailsAsync()
