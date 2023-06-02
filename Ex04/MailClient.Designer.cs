@@ -100,6 +100,7 @@
 			buttonSendMail.Text = "Gửi Mail";
 			buttonSendMail.UseVisualStyleBackColor = true;
 			buttonSendMail.Visible = false;
+			buttonSendMail.Click += buttonSendMail_Click;
 			// 
 			// buttonRefresh
 			// 

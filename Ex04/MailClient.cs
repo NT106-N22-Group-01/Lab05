@@ -320,5 +320,13 @@ namespace Ex04
 				}
 			}
 		}
+
+		private void buttonSendMail_Click(object sender, EventArgs e)
+		{
+			using (var sendMailForm = new SendEmailForm(textBoxAccount.Text, _smtpClient))
+			{
+				sendMailForm.ShowDialog();
+			}
+		}
 	}
 }
