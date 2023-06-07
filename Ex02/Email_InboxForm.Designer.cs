@@ -37,6 +37,8 @@
             tbPassword=new TextBox();
             tbEmail=new TextBox();
             btnLogin=new Button();
+            label3=new Label();
+            lbMess_count=new Label();
             SuspendLayout();
             // 
             // lsEmail
@@ -106,11 +108,31 @@
             btnLogin.UseVisualStyleBackColor=true;
             btnLogin.Click+=btnLogin_Click;
             // 
+            // label3
+            // 
+            label3.AutoSize=true;
+            label3.Location=new Point(397, 68);
+            label3.Name="label3";
+            label3.Size=new Size(35, 15);
+            label3.TabIndex=10;
+            label3.Text="Total:";
+            // 
+            // lbMess_count
+            // 
+            lbMess_count.AutoSize=true;
+            lbMess_count.Location=new Point(485, 68);
+            lbMess_count.Name="lbMess_count";
+            lbMess_count.Size=new Size(13, 15);
+            lbMess_count.TabIndex=11;
+            lbMess_count.Text="0";
+            // 
             // frmInbox
             // 
             AutoScaleDimensions=new SizeF(7F, 15F);
             AutoScaleMode=AutoScaleMode.Font;
             ClientSize=new Size(800, 450);
+            Controls.Add(lbMess_count);
+            Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(tbPassword);
@@ -134,5 +156,7 @@
         private ColumnHeader colEmail;
         private ColumnHeader colFrom;
         private ColumnHeader colDate;
+        private Label label3;
+        private Label lbMess_count;
     }
 }

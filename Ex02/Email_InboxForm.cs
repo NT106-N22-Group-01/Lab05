@@ -49,6 +49,7 @@ namespace Ex02
 
             try
             {
+                email_count = 0;
                 var client = new ImapClient();
                 client.Connect("imap.gmail.com", 993, SecureSocketOptions.SslOnConnect);
                 client.Authenticate(tbEmail.Text.Trim(), tbPassword.Text.Trim());
@@ -62,7 +63,10 @@ namespace Ex02
                     var item = new ListViewItem(message.Subject.ToString());
                     item.SubItems.Add(message.From.ToString());
                     item.SubItems.Add(message.Date.ToString());
+                    email_count++;
                 }
+
+                lbMess_count.Text = email_count.ToString();
             }
             catch (Exception ex)
             {
