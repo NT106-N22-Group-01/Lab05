@@ -50,6 +50,7 @@
             lsEmail.TabIndex=0;
             lsEmail.UseCompatibleStateImageBehavior=false;
             lsEmail.View=View.Details;
+            lsEmail.DoubleClick+=lsEmail_DoubleClick;
             // 
             // colEmail
             // 

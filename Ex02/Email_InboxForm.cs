@@ -22,8 +22,11 @@ namespace Ex02
             InitializeComponent();
         }
 
+        ImapClient client = new ImapClient();
         private int email_limit = 10;
         private int email_count = 0;
+        private List<MimeMessage> lsmess;
+        private List<UniqueId> id;
 
         private bool check_For_Empty_Txtbox()
         {
@@ -42,37 +45,96 @@ namespace Ex02
             return false;
         }
 
-        private void btnLogin_Click(object sender, EventArgs e)
+        private async Task<bool> connect_to_IMAPserverAsync(string acc, string pass)
+        {
+            try
+            {
+                if (!client.IsConnected)
+                    await client.ConnectAsync("imap.gmail.com", 993, SecureSocketOptions.SslOnConnect);
+
+                await client.AuthenticateAsync(acc, pass);
+
+                if (!client.IsAuthenticated)
+                    return false;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+            return true;
+        }
+
+        private async Task extractEmailAsync()
+        {
+            var inbox = client.Inbox;
+            await inbox.OpenAsync(FolderAccess.ReadOnly);
+            var search = SearchQuery.All;
+            id = inbox.Search(search).ToList();
+            id.Reverse();
+        }
+
+        private async Task loadEmailAsync()
+        {
+            lsmess = new List<MimeMessage>();
+            for (int i = 0; i < email_limit; i++)
+            {
+                var mess = await client.Inbox.GetMessageAsync(id[i]);
+                lsmess.Add(mess);
+            }
+
+            foreach (var mess in lsmess)
+            {
+                var item = new ListViewItem(mess.Subject.ToString());
+                item.SubItems.Add(mess.From.ToString());
+                item.SubItems.Add(mess.Date.LocalDateTime.ToString());
+                item.Tag = mess;
+                lsEmail.Items.Add(item);
+            }
+        }
+
+        private async void btnLogin_Click(object sender, EventArgs e)
         {
             if (check_For_Empty_Txtbox())
                 return;
 
+            btnLogin.Visible = false;
+
             try
             {
-                email_count = 0;
-                var client = new ImapClient();
-                client.Connect("imap.gmail.com", 993, SecureSocketOptions.SslOnConnect);
-                client.Authenticate(tbEmail.Text.Trim(), tbPassword.Text.Trim());
-                var inbox = client.Inbox;
-                inbox.Open(FolderAccess.ReadOnly);
-
-
-                for (int i = 0; i < email_limit; i++)
+                if (!await connect_to_IMAPserverAsync(tbEmail.Text.Trim(), tbPassword.Text.Trim()))
                 {
-                    var message = inbox.GetMessage(i);
-                    var item = new ListViewItem(message.Subject.ToString());
-                    item.SubItems.Add(message.From.ToString());
-                    item.SubItems.Add(message.Date.ToString());
-                    email_count++;
+                    MessageBox.Show("Lỗi kết nối");
+                    btnLogin.Visible = true;
+                    return;
                 }
-
-                lbMess_count.Text = email_count.ToString();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
+                btnLogin.Visible = true;
                 return;
             }
+
+            await extractEmailAsync();
+            await loadEmailAsync();
+        }
+
+        private void lsEmail_DoubleClick(object sender, EventArgs e)
+        {
+            if (lsEmail.SelectedItems.Count > 0)
+            {
+                ListViewItem select = lsEmail.SelectedItems[0];
+                MimeMessage mess = select.Tag as MimeMessage;
+
+                if (mess != null)
+                {
+                    using (var frmDetail = new EmailDetailForm(mess))
+                    {
+                        frmDetail.ShowDialog();
+                    }    
+                }
+            }    
         }
     }
 }
