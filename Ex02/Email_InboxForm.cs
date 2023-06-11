@@ -98,8 +98,6 @@ namespace Ex02
             if (check_For_Empty_Txtbox())
                 return;
 
-            btnLogin.Visible = false;
-
             try
             {
                 if (!await connect_to_IMAPserverAsync(tbEmail.Text.Trim(), tbPassword.Text.Trim()))
@@ -115,6 +113,13 @@ namespace Ex02
                 btnLogin.Visible = true;
                 return;
             }
+
+            btnLogin.Visible = false;
+            btnLogin.Enabled = false;
+            btnRefresh.Visible = true;
+            btnRefresh.Enabled = true;
+            btnLogout.Visible = true;
+            btnLogout.Enabled = true;
 
             await extractEmailAsync();
             await loadEmailAsync();
@@ -132,9 +137,36 @@ namespace Ex02
                     using (var frmDetail = new EmailDetailForm(mess))
                     {
                         frmDetail.ShowDialog();
-                    }    
+                    }
                 }
-            }    
+            }
+        }
+
+        private async void btnRefresh_Click(object sender, EventArgs e)
+        {
+            lbMess_count.Text = String.Empty;
+            email_count = 0;
+            lsEmail.Items.Clear();
+            id.Clear();
+            btnRefresh.Enabled = false;
+            await extractEmailAsync();
+            await loadEmailAsync();
+            btnRefresh.Enabled = true;
+        }
+
+        private async void btnLogout_Click(object sender, EventArgs e)
+        {
+            await client.DisconnectAsync(true);
+            lsEmail.Items.Clear();
+            id.Clear();
+            btnLogout.Enabled = false;
+            btnLogout.Visible = false;
+            btnRefresh.Enabled = false;
+            btnRefresh.Visible = false;
+            btnLogin.Enabled = true;
+            btnLogin.Visible = true;
+            tbEmail.Clear();
+            tbPassword.Clear();
         }
     }
 }

@@ -39,6 +39,8 @@
             btnLogin=new Button();
             label3=new Label();
             lbMess_count=new Label();
+            btnRefresh=new Button();
+            btnLogout=new Button();
             SuspendLayout();
             // 
             // lsEmail
@@ -89,6 +91,7 @@
             // 
             tbPassword.Location=new Point(86, 60);
             tbPassword.Name="tbPassword";
+            tbPassword.PasswordChar='*';
             tbPassword.Size=new Size(245, 23);
             tbPassword.TabIndex=7;
             // 
@@ -127,11 +130,37 @@
             lbMess_count.TabIndex=11;
             lbMess_count.Text="0";
             // 
+            // btnRefresh
+            // 
+            btnRefresh.Enabled=false;
+            btnRefresh.Location=new Point(559, 60);
+            btnRefresh.Name="btnRefresh";
+            btnRefresh.Size=new Size(107, 30);
+            btnRefresh.TabIndex=12;
+            btnRefresh.Text="REFRESH";
+            btnRefresh.UseVisualStyleBackColor=true;
+            btnRefresh.Visible=false;
+            btnRefresh.Click+=btnRefresh_Click;
+            // 
+            // btnLogout
+            // 
+            btnLogout.Enabled=false;
+            btnLogout.Location=new Point(681, 60);
+            btnLogout.Name="btnLogout";
+            btnLogout.Size=new Size(107, 29);
+            btnLogout.TabIndex=13;
+            btnLogout.Text="LOGOUT";
+            btnLogout.UseVisualStyleBackColor=true;
+            btnLogout.Visible=false;
+            btnLogout.Click+=btnLogout_Click;
+            // 
             // frmInbox
             // 
             AutoScaleDimensions=new SizeF(7F, 15F);
             AutoScaleMode=AutoScaleMode.Font;
             ClientSize=new Size(800, 450);
+            Controls.Add(btnLogout);
+            Controls.Add(btnRefresh);
             Controls.Add(lbMess_count);
             Controls.Add(label3);
             Controls.Add(label2);
@@ -159,5 +188,7 @@
         private ColumnHeader colDate;
         private Label label3;
         private Label lbMess_count;
+        private Button btnRefresh;
+        private Button btnLogout;
     }
 }
