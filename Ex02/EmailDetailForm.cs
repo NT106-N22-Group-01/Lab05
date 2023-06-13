@@ -1,33 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using MailKit;
+﻿using Markdig;
 using MimeKit;
 
 namespace Ex02
 {
-    public partial class EmailDetailForm : Form
-    {
-        public EmailDetailForm(MimeMessage message)
-        {
-            InitializeComponent();
-            this.message = message;
-        }
+	public partial class EmailDetailForm : Form
+	{
+		public EmailDetailForm(MimeMessage message)
+		{
+			InitializeComponent();
+			this.message = message;
+		}
 
-        private readonly MimeMessage message;
+		private readonly MimeMessage message;
 
-        private void EmailDetailForm_Load(object sender, EventArgs e)
-        {
-            lbSubject.Text = message.Subject.ToString();
-            lbFrom.Text = message.From.ToString();
-            lbTo.Text = message.To.ToString();
-            rtbMessage.Text = message.TextBody.ToString();
-        }
-    }
+		private async void EmailDetailForm_Load(object sender, EventArgs e)
+		{
+			this.Text = message.Subject;
+			lbFrom.Text = message.From.ToString();
+			lbTo.Text = message.To.ToString();
+			lbSubject.Text = message.Subject;
+
+			await webView2.EnsureCoreWebView2Async();
+			if (!string.IsNullOrEmpty(message.HtmlBody))
+			{
+				webView2.CoreWebView2.NavigateToString(message.HtmlBody);
+			}
+			else
+			{
+				var content = Markdown.ToHtml(message.TextBody);
+				webView2.CoreWebView2.NavigateToString(content);
+			}
+		}
+	}
 }
