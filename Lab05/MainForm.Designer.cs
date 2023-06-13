@@ -33,14 +33,12 @@
 			buttonEx2 = new Button();
 			buttonEx4 = new Button();
 			buttonExit = new Button();
-			buttonEx6 = new Button();
-			buttonEx5 = new Button();
 			SuspendLayout();
 			// 
 			// buttonEx1
 			// 
 			buttonEx1.Font = new Font("Open Sans", 12F, FontStyle.Bold, GraphicsUnit.Point);
-			buttonEx1.Location = new Point(222, 64);
+			buttonEx1.Location = new Point(215, 105);
 			buttonEx1.Name = "buttonEx1";
 			buttonEx1.Size = new Size(129, 53);
 			buttonEx1.TabIndex = 0;
@@ -51,7 +49,7 @@
 			// buttonEx3
 			// 
 			buttonEx3.Font = new Font("Open Sans", 12F, FontStyle.Bold, GraphicsUnit.Point);
-			buttonEx3.Location = new Point(222, 167);
+			buttonEx3.Location = new Point(215, 208);
 			buttonEx3.Name = "buttonEx3";
 			buttonEx3.Size = new Size(129, 53);
 			buttonEx3.TabIndex = 1;
@@ -62,7 +60,7 @@
 			// buttonEx2
 			// 
 			buttonEx2.Font = new Font("Open Sans", 12F, FontStyle.Bold, GraphicsUnit.Point);
-			buttonEx2.Location = new Point(484, 64);
+			buttonEx2.Location = new Point(477, 105);
 			buttonEx2.Name = "buttonEx2";
 			buttonEx2.Size = new Size(129, 53);
 			buttonEx2.TabIndex = 4;
@@ -73,7 +71,7 @@
 			// buttonEx4
 			// 
 			buttonEx4.Font = new Font("Open Sans", 12F, FontStyle.Bold, GraphicsUnit.Point);
-			buttonEx4.Location = new Point(484, 167);
+			buttonEx4.Location = new Point(477, 208);
 			buttonEx4.Name = "buttonEx4";
 			buttonEx4.Size = new Size(129, 53);
 			buttonEx4.TabIndex = 5;
@@ -92,35 +90,11 @@
 			buttonExit.UseVisualStyleBackColor = true;
 			buttonExit.Click += buttonExit_Click;
 			// 
-			// buttonEx6
-			// 
-			buttonEx6.Font = new Font("Open Sans", 12F, FontStyle.Bold, GraphicsUnit.Point);
-			buttonEx6.Location = new Point(484, 256);
-			buttonEx6.Name = "buttonEx6";
-			buttonEx6.Size = new Size(129, 53);
-			buttonEx6.TabIndex = 9;
-			buttonEx6.Text = "Bài 6";
-			buttonEx6.UseVisualStyleBackColor = true;
-			buttonEx6.Click += buttonEx6_Click;
-			// 
-			// buttonEx5
-			// 
-			buttonEx5.Font = new Font("Open Sans", 12F, FontStyle.Bold, GraphicsUnit.Point);
-			buttonEx5.Location = new Point(222, 256);
-			buttonEx5.Name = "buttonEx5";
-			buttonEx5.Size = new Size(129, 53);
-			buttonEx5.TabIndex = 8;
-			buttonEx5.Text = "Bài 5";
-			buttonEx5.UseVisualStyleBackColor = true;
-			buttonEx5.Click += buttonEx5_Click;
-			// 
 			// MainForm
 			// 
 			AutoScaleDimensions = new SizeF(10F, 25F);
 			AutoScaleMode = AutoScaleMode.Font;
 			ClientSize = new Size(800, 427);
-			Controls.Add(buttonEx6);
-			Controls.Add(buttonEx5);
 			Controls.Add(buttonExit);
 			Controls.Add(buttonEx4);
 			Controls.Add(buttonEx2);
@@ -138,7 +112,5 @@
 		private Button buttonEx2;
 		private Button buttonEx4;
 		private Button buttonExit;
-		private Button buttonEx6;
-		private Button buttonEx5;
 	}
 }
