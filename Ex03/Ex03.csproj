@@ -10,6 +10,18 @@
 
   <ItemGroup>
     <PackageReference Include="MailKit" Version="4.0.0" />
+    <PackageReference Include="Markdig" Version="0.31.0" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.1823.32" />
+    <PackageReference Include="MimeKit" Version="4.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="EmailDetailForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Email_InboxForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
 
 </Project>
