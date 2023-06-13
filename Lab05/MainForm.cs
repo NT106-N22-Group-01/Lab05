@@ -10,10 +10,10 @@ namespace Lab05
 
 		private void buttonEx01_Click(object sender, EventArgs e)
 		{
-			/*			this.Hide();
-						var Ex01 = new Ex01.Ex01();
-						Ex01.FormClosed += ShowMainForm;
-						Ex01.Show();*/
+			this.Hide();
+			var Ex01 = new Ex01.LoginForm();
+			Ex01.FormClosed += ShowMainForm;
+			Ex01.Show();
 		}
 
 		private void buttonEx2_Click(object sender, EventArgs e)
